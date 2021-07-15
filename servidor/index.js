@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const app = require("./init");
 const rutaTipos = require("./rutes/tipos");
-const { error404, errorGeneral, generarError } = require("./errors");
+const { error404, errorGeneral } = require("./errors");
 
 const iniciaServidor = () => {
   app.use(morgan("dev"));
@@ -13,6 +13,9 @@ const iniciaServidor = () => {
   app.use(express.json());
 
   app.use("/tipos", rutaTipos);
+
+  app.use(error404);
+  app.use(errorGeneral);
 };
 
 module.exports = iniciaServidor;

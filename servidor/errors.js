@@ -1,5 +1,14 @@
+const { validationResult } = require("express-validator");
 const debug = require("debug")("api-tipos:servidor:errors");
 const chalk = require("chalk");
+
+const validationErrors = (req, res, next) => {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    const nouError = generarError(error.mapped().id.msg, 400);
+    return next(nouError);
+  }
+};
 
 const errorServidor = (err, port) => {
   debug(chalk.red("No s'ha pogut aixecar el servidor"));
@@ -24,4 +33,10 @@ const generarError = (missatge, codi) => {
   return nouError;
 };
 
-module.exports = { errorServidor, error404, errorGeneral, generarError };
+module.exports = {
+  validationErrors,
+  errorServidor,
+  error404,
+  errorGeneral,
+  generarError,
+};
