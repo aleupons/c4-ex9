@@ -3,7 +3,7 @@ const Tipo = require("../models/Tipo");
 
 const llistarTipos = async () => {
   try {
-    const tipos = await Tipo.findOne();
+    const tipos = await Tipo.find();
     if (tipos.length === 0) {
       const nouError = generarError("No hi ha cap tipus a la llista", 404);
       throw nouError;
@@ -43,9 +43,9 @@ const crearTipo = async (nouTipo) => {
   }
 };
 
-const modificarTipo = async (id, tipoModificat) => {
+const modificarTipo = async (tipoId, tipoModificat) => {
   try {
-    const id = await Tipo.findOne({ _id: id });
+    const id = await Tipo.findOne({ _id: tipoId });
     if (!id) {
       const nouError = generarError("Aquest tipus no existeix");
       throw nouError;
@@ -62,7 +62,7 @@ const modificarTipo = async (id, tipoModificat) => {
 
 const esborrarTipo = async (idTipo) => {
   try {
-    const tipo = await Tipo.find({ _id: idTipo });
+    const tipo = await Tipo.findOne({ _id: idTipo });
     if (!tipo) {
       const nouError = generarError("Aquest tipus no existeix");
       throw nouError;

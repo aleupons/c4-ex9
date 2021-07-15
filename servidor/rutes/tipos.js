@@ -12,14 +12,14 @@ router.get("/listado", async (req, res, next) => {
     const llista = await llistarTipos();
     res.json(llista);
   } catch (error) {
-    res.next(error);
+    next(error);
   }
 });
 
 router.post("/nuevo-tipo", async (req, res, next) => {
-  const nouTipo = req.body;
+  const tipo = req.body;
   try {
-    const nouTipo = await crearTipo();
+    const nouTipo = await crearTipo(tipo);
     res.status(201).json(nouTipo);
   } catch (error) {
     next(error);

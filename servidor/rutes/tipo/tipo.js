@@ -14,7 +14,7 @@ router.get("/:id", async (req, res, next) => {
     const tipo = await mostrarTipo(id);
     res.json(tipo);
   } catch (error) {
-    res.next(error);
+    next(error);
   }
 });
 
@@ -22,10 +22,10 @@ router.put("/:id", async (req, res, next) => {
   const { id } = req.params;
   const tipo = req.body;
   try {
-    const tipo = await modificarTipo(id, tipo);
-    res.json(tipo);
+    const tipoModificat = await modificarTipo(id, tipo);
+    res.json(tipoModificat);
   } catch (error) {
-    res.next(error);
+    next(error);
   }
 });
 
@@ -35,7 +35,7 @@ router.delete("/:id", async (req, res, next) => {
     const tipo = await esborrarTipo(id);
     res.json(tipo);
   } catch (error) {
-    res.next(error);
+    next(error);
   }
 });
 
